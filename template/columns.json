@@ -2,5 +2,13 @@
   "model_name": "Model",
   "prod_year": "Year",
   "price_used": "Price online used market",
-  "sell_status": "Status"
+  "sell_status": "Status",
+  "manu": "Manufacturer",
+  "model": "Model",
+  "release": "Release date",
+  "mem": "Memory amount",
+  "bandwidth": "Memory bandwidth",
+  "cores": "CUDA cores",
+  "ebay_com": "Ebay Commercial DE",
+  "ebay_any": "Ebay %any"
 }

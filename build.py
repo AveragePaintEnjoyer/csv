@@ -11,6 +11,9 @@ OUTPUT_DIR = Path("public")
 COLUMN_MAP = json.loads(
     Path("template/columns.json").read_text(encoding="utf-8")
 )
+PAGE_MAP = json.loads(
+    Path("template/pages.json").read_text(encoding="utf-8")
+)
 
 def generate(csv_file):
     with csv_file.open(newline="", encoding="utf-8") as f:
@@ -72,7 +75,8 @@ def generate(csv_file):
         tbody.append(f"<tr>{''.join(cells)}</tr>")
 
     html = TEMPLATE.read_text(encoding="utf-8")
-    html = html.replace("{{TITLE}}", escape(csv_file.stem))
+    title = PAGE_MAP.get(csv_file.stem, csv_file.stem)
+    html = html.replace("{{TITLE}}", escape(title))
     html = html.replace("{{HEADERS}}", thead)
     html = html.replace("{{ROWS}}", "\n".join(tbody))
 
