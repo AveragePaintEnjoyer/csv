@@ -7,13 +7,37 @@
     <title>porsche</title>
 
     <style>
+        :root {
+            --bg: #fafafa;
+            --text: #222;
+            --table-bg: #fff;
+            --border: #ddd;
+            --header-bg: #f3f3f3;
+            --hover: #f8f8f8;
+            --input-bg: #fff;
+            --link-bg: #f0f0f0;
+            --link-hover: #e2e2e2;
+        }
+
+        [data-theme="dark"] {
+            --bg: #181818;
+            --text: #eee;
+            --table-bg: #222;
+            --border: #444;
+            --header-bg: #2c2c2c;
+            --hover: #292929;
+            --input-bg: #222;
+            --link-bg: #333;
+            --link-hover: #444;
+        }
+
         body {
             font-family: system-ui, sans-serif;
             max-width: 1400px;
             margin: 40px auto;
             padding: 0 20px;
-            color: #222;
-            background: #fafafa;
+            background: var(--bg);
+            color: var(--text);
         }
 
         input {
@@ -21,7 +45,9 @@
             box-sizing: border-box;
             padding: 10px 12px;
             margin-bottom: 16px;
-            border: 1px solid #ccc;
+            background: var(--input-bg);
+            color: var(--text);
+            border-color: var(--border);
             border-radius: 6px;
             font-size: 16px;
         }
@@ -29,27 +55,24 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            background: var(--table-bg);
         }
 
         th, td {
             padding: 10px 12px;
             border-bottom: 1px solid #ddd;
+            border-color: var(--border);
             text-align: left;
         }
 
         th {
             cursor: pointer;
             user-select: none;
-            background: #f3f3f3;
-        }
-
-        th:hover {
-            background: #e9e9e9;
+            background: var(--header-bg);
         }
 
         tr:hover td {
-            background: #f8f8f8;
+            background: var(--hover);
         }
 
         th.sorted::after {
@@ -66,27 +89,56 @@
             display: inline-block;
             padding: 4px 9px;
             border-radius: 5px;
-            background: #f0f0f0;
-            color: #333;
+            background: var(--link-bg);
+            color: var(--text);
             text-decoration: none;
             font-size: 0.9em;
         }
 
         a:hover {
-            background: #e2e2e2;
+            background: var(--link-hover);
             text-decoration: none;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .toolbar input {
+            flex: 1;
+            margin: 0;
+        }
+
+        #theme-toggle {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--header-bg);
+            color: var(--text);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        #theme-toggle:hover {
+            background: var(--hover);
         }
     </style>
 </head>
 
 <body>
 
-<input
-    type="search"
-    id="search"
-    placeholder="Search..."
-    autocomplete="off"
->
+<div class="toolbar">
+    <input
+        type="search"
+        id="search"
+        placeholder="Search..."
+        autocomplete="off"
+    >
+
+    <button id="theme-toggle" type="button">Dark mode</button>
+</div>
 
 <table id="table">
     <thead>
@@ -152,6 +204,15 @@ for (const th of table.tHead.rows[0].cells) {
         }
     });
 }
+
+const button = document.getElementById("theme-toggle");
+
+button.addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme === "dark";
+
+    document.documentElement.dataset.theme = dark ? "light" : "dark";
+    button.textContent = dark ? "Dark mode" : "Light mode";
+});
 </script>
 
 </body>
