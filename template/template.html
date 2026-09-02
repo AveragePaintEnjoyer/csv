@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{TITLE}}</title>
+
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #222;
+            background: #fafafa;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+            user-select: none;
+            background: #f3f3f3;
+        }
+
+        th:hover {
+            background: #e9e9e9;
+        }
+
+        tr:hover td {
+            background: #f8f8f8;
+        }
+
+        th.sorted::after {
+            content: " ▲";
+            font-size: 0.7em;
+        }
+
+        th.sorted[data-order="desc"]::after {
+            content: " ▼";
+            font-size: 0.7em;
+        }
+
+        a {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 5px;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        a:hover {
+            background: #e2e2e2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<input
+    type="search"
+    id="search"
+    placeholder="Search..."
+    autocomplete="off"
+>
+
+<table id="table">
+    <thead>
+        <tr>
+            {{HEADERS}}
+        </tr>
+    </thead>
+    <tbody>
+        {{ROWS}}
+    </tbody>
+</table>
+
+<script>
+const table = document.getElementById("table");
+const search = document.getElementById("search");
+
+// Search
+search.addEventListener("input", () => {
+    const query = search.value.toLowerCase();
+
+    for (const row of table.tBodies[0].rows) {
+        row.hidden = !row.textContent.toLowerCase().includes(query);
+    }
+});
+
+// Sort
+for (const th of table.tHead.rows[0].cells) {
+    th.addEventListener("click", () => {
+        const column = th.cellIndex;
+        const rows = [...table.tBodies[0].rows];
+        const ascending = th.dataset.order !== "asc";
+
+        rows.sort((a, b) => {
+            const x = a.cells[column].textContent.trim();
+            const y = b.cells[column].textContent.trim();
+
+            const nx = Number(x.replace(/[^\d.-]/g, ""));
+            const ny = Number(y.replace(/[^\d.-]/g, ""));
+
+            if (!isNaN(nx) && !isNaN(ny)) {
+                return ascending ? nx - ny : ny - nx;
+            }
+
+            return ascending
+                ? x.localeCompare(y)
+                : y.localeCompare(x);
+        });
+
+        // Reset all headers
+        for (const header of table.tHead.rows[0].cells) {
+            header.dataset.order = "";
+            header.classList.remove("sorted");
+        }
+
+        // Mark active column
+        th.dataset.order = ascending ? "asc" : "desc";
+        th.classList.add("sorted");
+
+        for (const row of rows) {
+            table.tBodies[0].appendChild(row);
+        }
+    });
+}
+</script>
+
+</body>
+</html>
