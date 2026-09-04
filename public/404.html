@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <title>404</title>
+
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #222;
+            --table-bg: #fff;
+            --border: #ddd;
+            --header-bg: #f3f3f3;
+            --hover: #f8f8f8;
+            --input-bg: #fff;
+            --link-bg: #f0f0f0;
+            --link-hover: #e2e2e2;
+        }
+
+        [data-theme="dark"] {
+            --bg: #181818;
+            --text: #eee;
+            --table-bg: #222;
+            --border: #444;
+            --header-bg: #2c2c2c;
+            --hover: #292929;
+            --input-bg: #222;
+            --link-bg: #333;
+            --link-hover: #444;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            background: var(--input-bg);
+            color: var(--text);
+            border-color: var(--border);
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--table-bg);
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+            border-color: var(--border);
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+            user-select: none;
+            background: var(--header-bg);
+        }
+
+        tr:hover td {
+            background: var(--hover);
+        }
+
+        th.sorted::after {
+            content: " ▲";
+            font-size: 0.7em;
+        }
+
+        th.sorted[data-order="desc"]::after {
+            content: " ▼";
+            font-size: 0.7em;
+        }
+
+        a {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 5px;
+            background: var(--link-bg);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        a:hover {
+            background: var(--link-hover);
+            text-decoration: none;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .toolbar input {
+            flex: 1;
+            margin: 0;
+        }
+
+        #theme-toggle {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--header-bg);
+            color: var(--text);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        #theme-toggle:hover {
+            background: var(--hover);
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>404</h1>
+<p>Nice try. Now fuck off!</p>
+
+<img src="rock.gif" width="165" height="50"/>
+
+</body>
+</html>
